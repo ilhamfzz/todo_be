@@ -53,10 +53,10 @@ public class TodoServiceImpl implements TodoService {
         newTodo.setUserId(Long.valueOf(user.getId()));
         newTodo.setTitle(todo.getTitle());
         newTodo.setDescription(todo.getDescription());
-        newTodo.setIsCompleted(todo.getIsCompleted());
+        newTodo.setIsCompleted(todo.getIsCompleted() ? 1 : 0);
         newTodo.setCreatedAt(sqlNow);
         newTodo.setUpdatedAt(sqlNow);
-        newTodo.setIsDeleted(false);
+        newTodo.setIsDeleted(0);
         todoRepository.save(newTodo);
         return new BaseResponse("Todo created successfully");
     }
@@ -70,7 +70,7 @@ public class TodoServiceImpl implements TodoService {
         }
         updatedTodo.setTitle(todo.getTitle());
         updatedTodo.setDescription(todo.getDescription());
-        updatedTodo.setIsCompleted(todo.getIsCompleted());
+        updatedTodo.setIsCompleted(todo.getIsCompleted() ? 1 : 0);
         updatedTodo.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
         todoRepository.save(updatedTodo);
         return new BaseResponse("Todo updated successfully");
@@ -83,7 +83,7 @@ public class TodoServiceImpl implements TodoService {
         if (!deletedTodo.getUserId().equals(Long.valueOf(user.getId()))) {
             throw new BadCredentialsException("Unauthorized access");
         }
-        deletedTodo.setIsDeleted(true);
+        deletedTodo.setIsDeleted(1);
         todoRepository.save(deletedTodo);
         return new BaseResponse("Todo deleted successfully");
     }

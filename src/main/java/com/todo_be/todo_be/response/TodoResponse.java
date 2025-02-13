@@ -19,8 +19,8 @@ public class TodoResponse {
     private String title;
     @JsonProperty("description")
     private String description;
-    @JsonProperty("completed")
-    private Boolean completed;
+    @JsonProperty("is_completed")
+    private Boolean isCompleted;
     @JsonProperty("created_at")
     private String createdAt;
     @JsonProperty("updated_at")
@@ -34,9 +34,9 @@ public class TodoResponse {
         // this.name = todo.getName();
         this.title = todo.getTitle();
         this.description = todo.getDescription();
-        this.completed = todo.getIsCompleted();
+        this.isCompleted = todo.getIsCompleted() == 1 ? true : false;
         this.createdAt = todo.getCreatedAt().toString();
         this.updatedAt = todo.getUpdatedAt().toString();
-        this.isDeleted = todo.getIsDeleted();
+        this.isDeleted = todo.getIsDeleted() == 1 ? true : false;
     }
 }

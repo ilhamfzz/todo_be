@@ -22,18 +22,18 @@ public class Todo {
     @Column(nullable = false)
     private String description;
     @Column(name = "is_completed", nullable = false)
-    private Boolean isCompleted;
+    private Integer isCompleted;
     @Column(name = "created_at")
     private Timestamp createdAt;
     @Column(name = "updated_at")
     private Timestamp updatedAt;
     @Column(name = "is_deleted")
-    private Boolean isDeleted;
+    private Integer isDeleted;
 
     public Todo() {
     }
 
-    public Todo(Long id,Long userId, String title, String description, Boolean isCompleted, Timestamp createdAt, Timestamp updatedAt, Boolean isDeleted) {
+    public Todo(Long id,Long userId, String title, String description, Integer isCompleted, Timestamp createdAt, Timestamp updatedAt, Integer isDeleted) {
         this.id = id;
         this.userId = userId;
         this.title = title;

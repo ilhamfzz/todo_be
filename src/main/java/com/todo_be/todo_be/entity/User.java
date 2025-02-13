@@ -20,12 +20,18 @@ import java.util.List;
 @Table(name="users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = true)
     private Integer id;
+    @Column(nullable = false)
     private String firstname;
+    @Column(nullable = false)
     private String lastname;
+    @Column(nullable = false, unique = true)
     private String email;
+    @Column(nullable = false)
     private String password;
+    @Column(name = "reset_token", nullable = true)
     private String resetToken;
     @Enumerated(EnumType.STRING)
     private Role role;
