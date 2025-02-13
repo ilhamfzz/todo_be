@@ -86,7 +86,7 @@ public class EmailServiceImpl implements EmailService{
     }
 
     public void sendResetEmail(String to, String token) {
-        String resetLink = "http://localhost:8080/api/auth/reset-password?token=" + token;
+        String resetLink = "http://localhost:8080/api/v1/password/reset-password?token=" + token;
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);

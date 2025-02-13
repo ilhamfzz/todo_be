@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.todo_be.todo_be.request.TodoRequest;
+import com.todo_be.todo_be.response.BaseResponse;
 import com.todo_be.todo_be.response.TodoResponse;
 import com.todo_be.todo_be.service.TodoService;
 
@@ -41,20 +42,20 @@ public class TodoController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createTodo(@RequestBody TodoRequest todo) throws IOException {
+    public ResponseEntity<BaseResponse> createTodo(@RequestBody TodoRequest todo) throws IOException {
         String response = todoService.createTodo(todo);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(new BaseResponse(response));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateTodo(@RequestBody TodoRequest todo, @PathVariable Long id) {
+    public ResponseEntity<BaseResponse> updateTodo(@RequestBody TodoRequest todo, @PathVariable Long id) {
         String response = todoService.updateTodo(todo, id);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(new BaseResponse(response));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteTodo(@PathVariable Long id) {
+    public ResponseEntity<BaseResponse> deleteTodo(@PathVariable Long id) {
         String response = todoService.deleteTodo(id);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(new BaseResponse(response));
     }
 }

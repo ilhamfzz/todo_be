@@ -1,5 +1,6 @@
 package com.todo_be.todo_be.controller;
 
+import com.todo_be.todo_be.response.BaseResponse;
 import com.todo_be.todo_be.service.PasswordResetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,15 @@ public class ForgotPasswordController {
     private PasswordResetService passwordResetService;
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<String> forgotPassword(@RequestParam String email) {
-        String result = passwordResetService.requestPasswordReset(email);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<BaseResponse> forgotPassword(@RequestParam String email) {
+        String response = passwordResetService.requestPasswordReset(email);
+        return ResponseEntity.ok(new BaseResponse(response));
     }
 
     @PostMapping("/reset-password")
-    public ResponseEntity<String> resetPassword(@RequestParam String token, @RequestBody Map<String, String> request) {
+    public ResponseEntity<BaseResponse> resetPassword(@RequestParam String token, @RequestBody Map<String, String> request) {
         String newPassword = request.get("password");
-        String success = passwordResetService.resetPassword(token, newPassword);
-        return ResponseEntity.ok(success);
+        String response = passwordResetService.resetPassword(token, newPassword);
+        return ResponseEntity.ok(new BaseResponse(response));
     }
 }

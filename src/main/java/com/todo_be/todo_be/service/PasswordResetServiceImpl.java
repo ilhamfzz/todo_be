@@ -22,7 +22,7 @@ public class PasswordResetServiceImpl implements PasswordResetService{
     public String requestPasswordReset(String email) {
         Optional<User> userOpt = userRepository.findByEmail(email);
         if (!userOpt.isPresent()) {
-            throw new RuntimeException("Email not found");
+            throw new RuntimeException("Email not registered");
         }
 
         User user = userOpt.get();
