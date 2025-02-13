@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-// import com.todo_be.todo_be.handler.JwtExceptionHandler;
 import com.todo_be.todo_be.request.TodoRequest;
-import com.todo_be.todo_be.response.BaseResponse;
 import com.todo_be.todo_be.response.TodoResponse;
 import com.todo_be.todo_be.service.TodoService;
 
@@ -43,20 +41,20 @@ public class TodoController {
     }
 
     @PostMapping
-    public ResponseEntity<BaseResponse> createTodo(@RequestBody TodoRequest todo) throws IOException {
-        BaseResponse response = todoService.createTodo(todo);
+    public ResponseEntity<String> createTodo(@RequestBody TodoRequest todo) throws IOException {
+        String response = todoService.createTodo(todo);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BaseResponse> updateTodo(@RequestBody TodoRequest todo, @PathVariable Long id) {
-        BaseResponse response = todoService.updateTodo(todo, id);
+    public ResponseEntity<String> updateTodo(@RequestBody TodoRequest todo, @PathVariable Long id) {
+        String response = todoService.updateTodo(todo, id);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<BaseResponse> deleteTodo(@PathVariable Long id) {
-        BaseResponse response = todoService.deleteTodo(id);
+    public ResponseEntity<String> deleteTodo(@PathVariable Long id) {
+        String response = todoService.deleteTodo(id);
         return ResponseEntity.ok(response);
     }
 }

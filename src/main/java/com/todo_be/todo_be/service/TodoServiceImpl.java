@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.todo_be.todo_be.entity.Todo;
 import com.todo_be.todo_be.repository.TodoRepository;
 import com.todo_be.todo_be.request.TodoRequest;
-import com.todo_be.todo_be.response.BaseResponse;
 import com.todo_be.todo_be.response.TodoResponse;
 import com.todo_be.todo_be.response.UserResponse;
 
@@ -45,7 +44,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public BaseResponse createTodo(TodoRequest todo) {
+    public String createTodo(TodoRequest todo) {
         LocalDateTime now = LocalDateTime.now();
         Timestamp sqlNow = Timestamp.valueOf(now);
         UserResponse user = userService.getMyProfile();
@@ -58,11 +57,11 @@ public class TodoServiceImpl implements TodoService {
         newTodo.setUpdatedAt(sqlNow);
         newTodo.setIsDeleted(0);
         todoRepository.save(newTodo);
-        return new BaseResponse("Todo created successfully");
+        return "Todo created successfully";
     }
 
     @Override
-    public BaseResponse updateTodo(TodoRequest todo, Long id) {
+    public String updateTodo(TodoRequest todo, Long id) {
         Todo updatedTodo = todoRepository.getTodoById(id);
         UserResponse user = userService.getMyProfile();
         if (!updatedTodo.getUserId().equals(Long.valueOf(user.getId()))) {
@@ -73,11 +72,11 @@ public class TodoServiceImpl implements TodoService {
         updatedTodo.setIsCompleted(todo.getIsCompleted() ? 1 : 0);
         updatedTodo.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
         todoRepository.save(updatedTodo);
-        return new BaseResponse("Todo updated successfully");
+        return "Todo updated successfully";
     }
 
     @Override
-    public BaseResponse deleteTodo(Long id) {
+    public String deleteTodo(Long id) {
         Todo deletedTodo = todoRepository.getTodoById(id);
         UserResponse user = userService.getMyProfile();
         if (!deletedTodo.getUserId().equals(Long.valueOf(user.getId()))) {
@@ -85,6 +84,6 @@ public class TodoServiceImpl implements TodoService {
         }
         deletedTodo.setIsDeleted(1);
         todoRepository.save(deletedTodo);
-        return new BaseResponse("Todo deleted successfully");
+        return "Todo deleted successfully";
     }
 }
