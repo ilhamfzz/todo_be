@@ -1,5 +1,6 @@
 package com.todo_be.todo_be.service;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,13 +25,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse getMyProfile() {
+    public UserResponse getMyProfile() throws BadRequestException {
         String token = jwtService.getToken(request);
         String userEmail = jwtService.extractUsername(token);
         User user = userRepository.findDataByEmail(userEmail);
 
         if (user == null) {
-            throw new RuntimeException("User not found");
+            throw new BadRequestException("User not found");
         }
 
         return new UserResponse(user);

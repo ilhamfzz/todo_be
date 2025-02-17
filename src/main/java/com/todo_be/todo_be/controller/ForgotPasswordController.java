@@ -17,13 +17,13 @@ public class ForgotPasswordController {
     private PasswordResetService passwordResetService;
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<BaseResponse> forgotPassword(@RequestParam String email) {
+    public ResponseEntity<BaseResponse> forgotPassword(@RequestParam String email) throws Exception {
         String response = passwordResetService.requestPasswordReset(email);
         return ResponseEntity.ok(new BaseResponse(response));
     }
 
     @PostMapping("/reset-password")
-    public ResponseEntity<BaseResponse> resetPassword(@RequestParam String token, @RequestBody Map<String, String> request) {
+    public ResponseEntity<BaseResponse> resetPassword(@RequestParam String token, @RequestBody Map<String, String> request) throws Exception {
         String newPassword = request.get("password");
         String response = passwordResetService.resetPassword(token, newPassword);
         return ResponseEntity.ok(new BaseResponse(response));

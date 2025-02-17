@@ -15,7 +15,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public UserResponse getMyProfile() {
+    public UserResponse getMyProfile() throws Exception {
         return userService.getMyProfile();
     }
 }
